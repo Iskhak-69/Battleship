@@ -49,8 +49,32 @@ public class test {
         return true;
     }
 
-    public static void occupyThreeDeckShip(int i, int j){
+    public static void occupyThreeDeckShip(int i, int j, char[][] seaField, int direction){
+        if(direction == 1){
+            seaField[i][j] = '1';
 
+        }else{
+            seaField[i - 1][j - 1] = '1';
+            seaField[i - 1][j] = '1';
+            seaField[i - 1][j + 1] = '1';
+            seaField[i][j - 1] = '1';
+            seaField[i][j + 1] = '1';
+            seaField[i - 1][j - 1] = '1';
+            seaField[i - 1][j - 1] = '1';
+            seaField[i - 1][j - 1] = '1';
+            seaField[i - 1][j - 1] = '1';
+
+            for(int counterI = i - 1; counterI < 6; counterI++){
+                for(int counterJ = j - 1; counterJ < 5; counterJ++){
+                    if(){
+
+                    }
+
+
+                }
+            }
+
+        }
     }
 
     public static char[][] getField(){
