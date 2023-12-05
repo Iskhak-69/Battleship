@@ -28,20 +28,22 @@ public class Main {
                 while(isTrue){
                     int x = random.nextInt(1, 8);
                     int y = random.nextInt(1, 8);
+                    System.out.println(x);
+                    System.out.println(y);
                     int direction = random.nextInt(1,3);
                     //direction == 1 is horizontal
                     //direction == 2 is vertical
                     if(direction == 1){
                         if(y > 1 && y < 7){
-                            seaField[x][y] = '#';
-                            seaField[x][y - 1] = '#';
-                            seaField[x][y + 1] = '#';
+                            seaField[x - 1][y - 1] = '#';
+                            seaField[x - 1][y - 2] = '#';
+                            seaField[x - 1][y] = '#';
                             isTrue = false;
                         }
                         else if(x > 1 && x < 7){
-                            seaField[x][y] = '#';
-                            seaField[x - 1][y] = '#';
-                            seaField[x + 1][y] = '#';
+                            seaField[x - 1][y - 1] = '#';
+                            seaField[x - 2][y - 1] = '#';
+                            seaField[x][y - 1] = '#';
                             isTrue = false;
                         }
                     }
