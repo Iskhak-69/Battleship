@@ -17,6 +17,28 @@ public class test {
             }
             System.out.println();
         }
+        System.out.println();
+
+        twoDeckShip(seaField);
+
+        for (int i = 0; i < seaField.length; i++) {
+            for (int j = 0; j < seaField.length; j++) {
+                System.out.print(seaField[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+
+        twoDeckShip(seaField);
+
+        System.out.println();
+
+        for (int i = 0; i < seaField.length; i++) {
+            for (int j = 0; j < seaField.length; j++) {
+                System.out.print(seaField[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     //region threeDeckShip
@@ -43,6 +65,8 @@ public class test {
                 }
             }else{
                 if(canThreeDeckShipPlace(i, j, direction)){
+                    System.out.println(i + " " + j);
+
                     seaField[i][j] = '#';
                     seaField[i + 1][j] = '#';
                     seaField[i + 2][j] = '#';
@@ -118,23 +142,22 @@ public class test {
 //            int direction = 2;
 
             if(direction == 1){
-                if(canThreeDeckShipPlace(i, j, direction)){
+                if(canTwoDeckShipPlace(i, j, seaField, direction)){
                     System.out.println(i + " " + j);
                     seaField[i][j] = '#';
                     seaField[i][j + 1] = '#';
-                    seaField[i][j + 2] = '#';
 
                     isShipPlaced = true;
-                    occupyThreeDeckShip(i, j, seaField, direction);
+                    occupyTwoDeckShip(i, j, seaField, direction);
                 }
             }else{
-                if(canThreeDeckShipPlace(i, j, direction)){
+                if(canTwoDeckShipPlace(i, j, seaField, direction)){
+                    System.out.println(i + " " + j);
                     seaField[i][j] = '#';
                     seaField[i + 1][j] = '#';
-                    seaField[i + 2][j] = '#';
 
                     isShipPlaced = true;
-                    occupyThreeDeckShip(i, j, seaField, direction);
+                    occupyTwoDeckShip(i, j, seaField, direction);
 
                 }
             }
@@ -142,13 +165,13 @@ public class test {
 
     }
 
-    public static boolean canTwoDeckShipPlace(int i, int j, int direction){
-        if(direction == 1){
-            if(j > 4){
+    public static boolean canTwoDeckShipPlace(int i, int j, char[][] seaField, int direction){
+        if(direction == 2){
+            if( i > 5 || j > 5 || seaField[i][j] == '1' || seaField[i][j] == '#'|| seaField[i+1][j] == '#' || seaField[i+1][j] == '1'  ){
                 return false;
             }
         }else{
-            if(i > 4){
+            if( i > 5 || j > 5 || seaField[i][j] == '1' || seaField[i][j] == '#'  || seaField[i][j+1] == '#' || seaField[i][j + 1] == '1' ){
                 return false;
             }
         }
@@ -159,8 +182,8 @@ public class test {
     public static void occupyTwoDeckShip(int i, int j, char[][] seaField, int direction){
         if(direction == 1){
             for(int counterI = i - 1; counterI < i + 2; counterI++){
-                for(int counterJ = j - 1; counterJ < j + 4; counterJ++){
-                    if((counterI == i && counterJ == j) || (counterI == i && counterJ == j + 1) || (counterI == i && counterJ == j + 2)){
+                for(int counterJ = j - 1; counterJ < j + 3; counterJ++){
+                    if((counterI == i && counterJ == j) || (counterI == i && counterJ == j + 1)){
                         continue;
                     }
 
@@ -173,9 +196,9 @@ public class test {
             }
         }else{
 
-            for(int counterI = i - 1; counterI < i + 4; counterI++){
+            for(int counterI = i - 1; counterI < i + 3; counterI++){
                 for(int counterJ = j - 1; counterJ < j + 2; counterJ++){
-                    if((counterI == i && counterJ == j) || (counterI == i + 1 && counterJ == j) || (counterI == i + 2 && counterJ == j)){
+                    if((counterI == i && counterJ == j) || (counterI == i + 1 && counterJ == j)){
                         continue;
                     }
 
