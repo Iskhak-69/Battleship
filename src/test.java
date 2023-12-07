@@ -39,6 +39,19 @@ public class test {
             }
             System.out.println();
         }
+        System.out.println();
+
+        int oneDeckShipCount = 4;
+        for(int i = 0; i < oneDeckShipCount; i++){
+            oneDeckShip(seaField);
+        }
+        for (int i = 0; i < seaField.length; i++) {
+            for (int j = 0; j < seaField.length; j++) {
+                System.out.print(seaField[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
     //region threeDeckShip
@@ -214,7 +227,44 @@ public class test {
     }
     //endregion
 
+    //region oneDeckShip
+    public static void oneDeckShip(char[][] seaField) {
+        boolean isShipPlaced = false;
 
+        while (!isShipPlaced) {
+            int i = random.nextInt(0, 7);
+            int j = random.nextInt(0, 7);
+
+            if (canOneDeckShipPlace(i, j, seaField)) {
+                System.out.println(i + " " + j);
+                seaField[i][j] = '#';
+
+                isShipPlaced = true;
+                occupyOneDeckShip(i, j, seaField);
+            }
+        }
+    }
+
+    public static boolean canOneDeckShipPlace(int i, int j, char[][] seaField) {
+        if (seaField[i][j] == '1' || seaField[i][j] == '#') {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static void occupyOneDeckShip(int i, int j, char[][] seaField) {
+        for (int counterI = i - 1; counterI < i + 2; counterI++) {
+            for (int counterJ = j - 1; counterJ < j + 2; counterJ++) {
+                if (counterI < 0 || counterI > 6 || counterJ < 0 || counterJ > 6 || (counterI == i && counterJ == j)) {
+                    continue;
+                }
+
+                seaField[counterI][counterJ] = '1';
+            }
+        }
+    }
+    //endregion
 
     public static char[][] getField(){
         char[][] seaField = new char[7][7];
