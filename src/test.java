@@ -45,7 +45,7 @@ public class test {
             userField[iCoordinate][jCoordinate] = '+';
 
             if(checkIsKilled(iCoordinate, jCoordinate, seaField)){
-                MakeKill(iCoordinate, jCoordinate, seaField);
+                MakeKill(iCoordinate, jCoordinate, seaField, userField);
             }
 
         }else{
@@ -54,33 +54,22 @@ public class test {
         }
     }
 
-    public static boolean MakeKill(int i, int j, char[][] seaField){
-        if(seaField[i][j] == 'X'){
-            if(seaField[i][j+1] == " + "){
-                seaField[i][j+1] = " X ";
-                if(seaField[i][j+2] == " + "){
-                    seaField[i][j+2] = " X ";
-                }
-            }
-            else if(seaField[i][j-1] == " + "){
-                seaField[i][j-1] = " X ";
-                if(seaField[i][j-2] == " + "){
-                    seaField[i][j-2] = " X ";
-                }
-            }
-            else if(seaField[i+1][j] == " + "){
-                seaField[i+1][j] = " X ";
-                if(seaField[i+2][j] == " + "){
-                    seaField[i+2][j] = " X ";
-                }
-            }
-            else if(seaField[i-1][j] == " + "){
-                seaField[i-1][j] = " X ";
-                if(seaField[i-2][j] == " + "){
-                    seaField[i-2][j] = " X ";
-                }
-            }
-        }
+    public static void MakeKill(int i, int j, char[][] seaField, char[][] userField){
+            if(seaField[i][j] == '+') {seaField[i][j] = 'X'; userField[i][j] = 'X';}
+            if(j < 6 && seaField[i][j+1] == '+') {seaField[i][j + 1] = 'X'; userField[i][j + 1] = 'X';}
+            if(j < 5 && seaField[i][j+2] == '+') {seaField[i][j + 2] = 'X'; userField[i][j + 2] = 'X';}
+
+            if(seaField[i][j] == '+') {seaField[i][j] = 'X'; userField[i][j] = 'X';}
+            if(j > 0 && seaField[i][j-1] == '+') {seaField[i][j - 1] = 'X'; userField[i][j - 1] = 'X';}
+            if(j > 1 && seaField[i][j-2] == '+') {seaField[i][j - 2] = 'X'; userField[i][j - 2] = 'X';}
+
+            if(seaField[i][j] == '+') {seaField[i][j] = 'X'; userField[i][j] = 'X';}
+            if(i < 6 && seaField[i+1][j] == '+') {seaField[i + 1][j] = 'X'; userField[i + 1][j] = 'X';}
+            if(i < 5 && seaField[i+2][j] == '+') {seaField[i + 2][j] = 'X'; userField[i + 2][j] = 'X';}
+
+            if(seaField[i][j] == '+') {seaField[i][j] = 'X'; userField[i][j] = 'X';}
+            if(i > 0 && seaField[i-1][j] == '+') {seaField[i - 1][j] = 'X'; userField[i - 1][j] = 'X';}
+            if(i > 1 && seaField[i-2][j] == '+') {seaField[i - 2][j] = 'X'; userField[i - 2][j] = 'X';}
     }
 
      public static boolean checkIsKilled(int i, int j, char[][] seaField){
@@ -88,11 +77,11 @@ public class test {
 
         for(int counterI = i - 1; counterI < i + 2; counterI++){
             for(int counterJ = j - 1; counterJ < j + 2; counterJ++){
-                if(counterI > 6 || counterJ > 6){
+                if(counterI > 6 || counterJ > 6 || counterJ < 0 || counterI < 0){
                     continue;
                 }
 
-                if (seaField[i][j] == '#') {
+                if (seaField[counterI][counterJ] == '#') {
                     isKilled = false;
                     break;
                 }
