@@ -22,23 +22,32 @@ public class test {
         ShowField(userField);
 
         while(!IsGameOver){
-            Attack(seaField);
+            Attack(seaField, userField);
 
             if(CheckIfGameIsOver(seaField)){
                 IsGameOver = true;
             }
+
+            ShowField(seaField);
+            ShowField(userField );
+
         }
     }
 
-    public static void Attack(char[][] seaField){
-        int iCoordinate = scanner.nextInt() - 1;
+    public static void Attack(char[][] seaField, char[][] userField){
+        System.out.print("Enter x coordinate (1-7): ");
         int jCoordinate = scanner.nextInt() - 1;
-        char place = seaField[iCoordinate][jCoordinate];
 
-        if(place == '#'){
-           place = 'x';
+        System.out.print("Enter y coordinate (1-7): ");
+        int iCoordinate = scanner.nextInt() - 1;
+
+
+        if(seaField[iCoordinate][jCoordinate] == '#'){
+            seaField[iCoordinate][jCoordinate] = 'X';
+            userField[iCoordinate][jCoordinate] = 'X';
         }else{
-            place = '〜';
+            seaField[iCoordinate][jCoordinate] = '〜';
+            userField[iCoordinate][jCoordinate] = '〜';
         }
     }
 
@@ -63,13 +72,9 @@ public class test {
             int i = random.nextInt(0, 7);
             int j = random.nextInt(0, 7);
             int direction = random.nextInt(1, 3);
-//            int i = 2;
-//            int j = 5;
-//            int direction = 2;
 
             if(direction == 1){
                 if(canThreeDeckShipPlace(i, j, direction)){
-                    System.out.println(i + " " + j);
                     seaField[i][j] = '#';
                     seaField[i][j + 1] = '#';
                     seaField[i][j + 2] = '#';
@@ -79,7 +84,6 @@ public class test {
                 }
             }else{
                 if(canThreeDeckShipPlace(i, j, direction)){
-                    System.out.println(i + " " + j);
 
                     seaField[i][j] = '#';
                     seaField[i + 1][j] = '#';
@@ -151,13 +155,8 @@ public class test {
             int i = random.nextInt(0, 7);
             int j = random.nextInt(0, 7);
             int direction = random.nextInt(1, 3);
-//            int i = 2;
-//            int j = 5;
-//            int direction = 2;
-
             if(direction == 1){
                 if(canTwoDeckShipPlace(i, j, seaField, direction)){
-                    System.out.println(i + " " + j);
                     seaField[i][j] = '#';
                     seaField[i][j + 1] = '#';
 
@@ -166,7 +165,6 @@ public class test {
                 }
             }else{
                 if(canTwoDeckShipPlace(i, j, seaField, direction)){
-                    System.out.println(i + " " + j);
                     seaField[i][j] = '#';
                     seaField[i + 1][j] = '#';
 
@@ -237,7 +235,6 @@ public class test {
             int j = random.nextInt(0, 7);
 
             if (canOneDeckShipPlace(i, j, seaField)) {
-                System.out.println(i + " " + j);
                 seaField[i][j] = '#';
 
                 isShipPlaced = true;
@@ -273,7 +270,7 @@ public class test {
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
                 if(isUserField){
-                    seaField[i][j] = '•';
+                    seaField[i][j] = '*';
                 }
                 else{
                     seaField[i][j] = '0';
@@ -284,7 +281,10 @@ public class test {
     }
 
     public static void ShowField(char[][] seaField){
+        System.out.print("  1 2 3 4 5 6 7" );
+        System.out.println();
         for (int i = 0; i < seaField.length; i++) {
+            System.out.print(i + 1 + " ");
             for (int j = 0; j < seaField.length; j++) {
                 System.out.print(seaField[i][j] + " ");
             }
