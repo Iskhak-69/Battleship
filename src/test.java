@@ -3,55 +3,56 @@ import java.util.Scanner;
 
 public class test {
     static Random random = new Random();
-
+    static Scanner scanner = new Scanner(System.in);
+    static boolean IsGameOver = false;
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        char[][] seaField = getField();
+        char[][] seaField = getField(false);
+        char[][] userField = getField(true);
 
         threeDeckShip(seaField);
-
-        for (int i = 0; i < seaField.length; i++) {
-            for (int j = 0; j < seaField.length; j++) {
-                System.out.print(seaField[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-
         twoDeckShip(seaField);
-
-        for (int i = 0; i < seaField.length; i++) {
-            for (int j = 0; j < seaField.length; j++) {
-                System.out.print(seaField[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-
         twoDeckShip(seaField);
-
-        System.out.println();
-
-        for (int i = 0; i < seaField.length; i++) {
-            for (int j = 0; j < seaField.length; j++) {
-                System.out.print(seaField[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println();
-
         int oneDeckShipCount = 4;
         for(int i = 0; i < oneDeckShipCount; i++){
             oneDeckShip(seaField);
         }
-        for (int i = 0; i < seaField.length; i++) {
-            for (int j = 0; j < seaField.length; j++) {
-                System.out.print(seaField[i][j] + " ");
+
+        ShowField(seaField);
+        ShowField(userField);
+
+        while(!IsGameOver){
+            Attack(seaField);
+
+            if(CheckIfGameIsOver(seaField)){
+                IsGameOver = true;
             }
-            System.out.println();
         }
-        System.out.println();
+    }
+
+    public static void Attack(char[][] seaField){
+        int iCoordinate = scanner.nextInt() - 1;
+        int jCoordinate = scanner.nextInt() - 1;
+        char place = seaField[iCoordinate][jCoordinate];
+
+        if(place == '#'){
+           place = 'x';
+        }else{
+            place = '〜';
+        }
+    }
+
+    public static boolean CheckIfGameIsOver(char[][] seaField){
+        boolean isGameOver = true;
+
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                if(seaField[i][j] == '#'){
+                    isGameOver = false;
+                }
+            }
+        }
+        return isGameOver;
     }
 
     //region threeDeckShip
@@ -266,14 +267,30 @@ public class test {
     }
     //endregion
 
-    public static char[][] getField(){
+    public static char[][] getField(boolean isUserField){
         char[][] seaField = new char[7][7];
 
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
-                seaField[i][j] = '0';
+                if(isUserField){
+                    seaField[i][j] = '•';
+                }
+                else{
+                    seaField[i][j] = '0';
+                }
             }
         }
         return seaField;
+    }
+
+    public static void ShowField(char[][] seaField){
+        for (int i = 0; i < seaField.length; i++) {
+            for (int j = 0; j < seaField.length; j++) {
+                System.out.print(seaField[i][j] + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+
     }
 }
