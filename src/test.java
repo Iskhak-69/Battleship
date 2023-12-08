@@ -1,11 +1,9 @@
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class test {
     static Random random = new Random();
     static Scanner scanner = new Scanner(System.in);
     static boolean IsGameOver = false;
-
     public static void main(String[] args) {
         char[][] seaField = getField(false);
         char[][] userField = getField(true);
@@ -43,12 +41,65 @@ public class test {
 
 
         if(seaField[iCoordinate][jCoordinate] == '#'){
-            seaField[iCoordinate][jCoordinate] = 'X';
-            userField[iCoordinate][jCoordinate] = 'X';
+            seaField[iCoordinate][jCoordinate] = '+';
+            userField[iCoordinate][jCoordinate] = '+';
+
+            if(checkIsKilled(iCoordinate, jCoordinate, seaField)){
+                MakeKill(iCoordinate, jCoordinate, seaField);
+            }
+
         }else{
             seaField[iCoordinate][jCoordinate] = '〜';
             userField[iCoordinate][jCoordinate] = '〜';
         }
+    }
+
+    public static boolean MakeKill(int i, int j, char[][] seaField){
+        if(seaField[i][j] == 'X'){
+            if(seaField[i][j+1] == " + "){
+                seaField[i][j+1] = " X ";
+                if(seaField[i][j+2] == " + "){
+                    seaField[i][j+2] = " X ";
+                }
+            }
+            else if(seaField[i][j-1] == " + "){
+                seaField[i][j-1] = " X ";
+                if(seaField[i][j-2] == " + "){
+                    seaField[i][j-2] = " X ";
+                }
+            }
+            else if(seaField[i+1][j] == " + "){
+                seaField[i+1][j] = " X ";
+                if(seaField[i+2][j] == " + "){
+                    seaField[i+2][j] = " X ";
+                }
+            }
+            else if(seaField[i-1][j] == " + "){
+                seaField[i-1][j] = " X ";
+                if(seaField[i-2][j] == " + "){
+                    seaField[i-2][j] = " X ";
+                }
+            }
+        }
+    }
+
+     public static boolean checkIsKilled(int i, int j, char[][] seaField){
+        boolean isKilled = true;
+
+        for(int counterI = i - 1; counterI < i + 2; counterI++){
+            for(int counterJ = j - 1; counterJ < j + 2; counterJ++){
+                if(counterI > 6 || counterJ > 6){
+                    continue;
+                }
+
+                if (seaField[i][j] == '#') {
+                    isKilled = false;
+                    break;
+                }
+            }
+        }
+
+        return isKilled;
     }
 
     public static boolean CheckIfGameIsOver(char[][] seaField){
@@ -88,6 +139,8 @@ public class test {
                     seaField[i][j] = '#';
                     seaField[i + 1][j] = '#';
                     seaField[i + 2][j] = '#';
+
+
 
                     isShipPlaced = true;
                     occupyThreeDeckShip(i, j, seaField, direction);
