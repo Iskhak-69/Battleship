@@ -49,8 +49,8 @@ public class test {
             }
 
         }else{
-            seaField[iCoordinate][jCoordinate] = '〜';
-            userField[iCoordinate][jCoordinate] = '〜';
+            seaField[iCoordinate][jCoordinate] = '-';
+            userField[iCoordinate][jCoordinate] = '-';
         }
     }
 
@@ -70,6 +70,18 @@ public class test {
             if(seaField[i][j] == '+') {seaField[i][j] = 'X'; userField[i][j] = 'X';}
             if(i > 0 && seaField[i-1][j] == '+') {seaField[i - 1][j] = 'X'; userField[i - 1][j] = 'X';}
             if(i > 1 && seaField[i-2][j] == '+') {seaField[i - 2][j] = 'X'; userField[i - 2][j] = 'X';}
+            markSunkAreaOneDeckShip(i, j, seaField, userField);
+    }
+    public static void markSunkAreaOneDeckShip(int i, int j, char[][] seaField, char[][] userField) {
+        for (int counterI = i - 1; counterI <= i + 1; counterI++) {
+            for (int counterJ = j - 1; counterJ <= j + 1; counterJ++) {
+                if (counterI >= 0 && counterI < 7 && counterJ >= 0 && counterJ < 7 && seaField[counterI][counterJ] != 'X') {
+                    seaField[counterI][counterJ] = '0';
+                    userField[counterI][counterJ] = '0';
+                }
+            }
+        }
+        System.out.println("------SUNK------");
     }
 
      public static boolean checkIsKilled(int i, int j, char[][] seaField){
